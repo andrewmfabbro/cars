@@ -1,13 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeCar } from "../store/slices/carsSlice";
+import { formReducer } from "../store/slices/formSlice";
 
 function CarList() {
   const dispatch = useDispatch();
   //destructure for the selector
-  const cars = useSelector(({ cars: { data, searchTerm } }) => {
-    return data.filter((car) =>
+  const {cars, name} = useSelector(({ form, cars: { data, searchTerm } }) => {
+    const filteredCars = data.filter((car) =>
       car.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    return {
+      cars: filteredCars,
+      name: form.name,
+    };
   });
 
   const handleCarDelete = (car) => {
@@ -15,8 +21,11 @@ function CarList() {
   };
 
   const renderedCars = cars.map((car) => {
+    // decide if car should be bold state.form.name
+    const bold = name && car.name.toLowerCase().includes(name.toLowerCase());
+
     return (
-      <div key={car.id} className="panel">
+      <div key={car.id} className={`panel ${bold && 'bold'}`}>
         <p>
           {car.name} - ${car.cost}
         </p>
