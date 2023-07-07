@@ -18,6 +18,7 @@ const carsSlice = createSlice({
       });
     },
     removeCar(state, action) {
+      // action.payload === the id of the car we want to update
       const updated = state.data.filter((car) => {
         return car.id !== action.payload;
       });
