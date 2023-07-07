@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeCar } from "../store/slices/carsSlice";
-import { formReducer } from "../store/slices/formSlice";
+
 
 function CarList() {
   const dispatch = useDispatch();
